@@ -1,0 +1,18 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Eliminar Publicación | Mi Blog{% endblock %}
+
+{% block content %}
+<section class="card delete-card">
+    <h1>Confirmar Eliminación</h1>
+    <p>¿Estás seguro de que deseás eliminar permanentemente la publicación <strong>"{{ post.titulo }}"</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            <a href="{% url 'detalle_post' post.pk %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

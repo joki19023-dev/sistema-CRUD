@@ -1,0 +1,24 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Inicio | Mi Blog{% endblock %}
+
+{% block content %}
+<section class="hero-header">
+    <h1>Bienvenido al Blog de Economía y Análisis de Datos</h1>
+    <p>Publicaciones gestionadas dinámicamente desde la base de datos con el ORM de Django.</p>
+</section>
+
+<div class="posts-list">
+    {% for post in posts %}
+        <article class="card post-card">
+            <h2><a href="{% url 'detalle_post' post.pk %}" class="post-link">{{ post.titulo }}</a></h2>
+            <p class="post-meta">Por <strong>{{ post.autor }}</strong> · {{ post.fecha_creacion|date:"d/m/Y H:i" }}</p>
+            <p>{{ post.contenido }}</p>
+        </article>
+    {% empty %}
+        <div class="card">
+            <p>No hay publicaciones con estado publicado.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

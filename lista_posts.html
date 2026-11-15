@@ -1,0 +1,46 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Publicaciones | Mi Blog{% endblock %}
+
+{% block content %}
+<section class="hero-header">
+    <div class="hero-top">
+        <div>
+            <h1>Publicaciones Recientes</h1>
+            <p>Gestioná tus artículos mediante el sistema CRUD completo con carga de imágenes.</p>
+        </div>
+        <a href="{% url 'crear_post' %}" class="btn btn-primary">+ Crear Publicación</a>
+    </div>
+</section>
+
+<div class="posts-list">
+    {% for post in posts %}
+        <article class="card post-card">
+            {% if post.imagen %}
+                <div class="post-thumbnail">
+                    <a href="{% url 'detalle_post' post.pk %}">
+                        <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}">
+                    </a>
+                </div>
+            {% endif %}
+            <h2><a href="{% url 'detalle_post' post.pk %}" class="post-link">{{ post.titulo }}</a></h2>
+            <p class="post-meta">
+                Por <strong>{{ post.autor }}</strong> · {{ post.fecha_creacion|date:"d/m/Y H:i" }}
+                · <span class="badge">{{ post.estado }}</span>
+            </p>
+            <div class="post-body">
+                <p>{{ post.contenido|truncatewords:35 }}</p>
+            </div>
+            <div class="post-actions">
+                <a href="{% url 'detalle_post' post.pk %}" class="btn btn-secondary">Ver detalle</a>
+                <a href="{% url 'editar_post' post.pk %}" class="btn btn-outline">Editar</a>
+                <a href="{% url 'eliminar_post' post.pk %}" class="btn btn-danger">Eliminar</a>
+            </div>
+        </article>
+    {% empty %}
+        <div class="card">
+            <p>No hay publicaciones disponibles en este momento.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

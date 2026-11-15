@@ -1,0 +1,19 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}{{ accion|default:"Guardar" }} Publicación | Mi Blog{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+    <h1>{{ accion|default:"Guardar" }} Publicación</h1>
+    <p class="form-subtitle">Completá los datos del formulario. Podés adjuntar una imagen ilustrativa.</p>
+
+    <form method="post" enctype="multipart/form-data" class="post-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Guardar Publicación</button>
+            <a href="{% url 'lista_posts' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
